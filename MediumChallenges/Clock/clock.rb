@@ -33,6 +33,26 @@ class Clock
     self
   end
 
+  def -(sub_minutes)
+    hr_div, min_div = div_time(sub_minutes)
+    if (hours - hr_div) < 0
+      self.hours = 24 - hr_div
+    else
+      self.hours -= hr_div
+    end
+
+    if min_div > minutes
+      self.minutes = 60 - min_div
+      self.hours -= 1
+      if hours < 0
+        self.hours = 24 - hours.abs
+      end
+    else
+      self.minutes -= min_div
+    end
+    self
+  end
+
   def ==(other)
     self.to_s == other.to_s
   end
